@@ -3,18 +3,10 @@ import azapi
 
 api = azapi.AZlyrics('google', accuracy=0.5)
 
-add_menu("Tools")
-add_menu_item("Show Logger", callback="show_logger")
-add_menu_item("Show About", callback="show_about")
-add_menu_item("Show Metrics", callback="show_metrics")
-add_menu_item("Show Documentation", callback="show_documentation")
-add_menu_item("Show Debug", callback="show_debug")
-end()
-
 set_main_window_size(850,800)
 set_main_window_title("API Test")
 
-##NEED TO CHANGE THE WAY i LOOK FOR CLICKS. OR CLEAR SELECTION
+##NEED TO add clear lyrics
 def mainCallback(sender, data):
     if get_table_selections("songlisttable"):
         add_text("", parent="lyrics")
