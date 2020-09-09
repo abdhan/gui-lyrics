@@ -3,12 +3,17 @@
 Displays lyrics instantly or gives you options to choose from. Just enter artist and/or song title and hit ENTER.
 
 ## Dependencies
+Easy way is to download/clone this repo.
+Create a virtual environment if required.
+Run `pip install -r requirements.txt` from the root to install dependancies.
+Run `python3 lyric_finder.py` or `python lyric_finder.py`
+
 1. UI front-end is dearpygui. (Note: 32bit Python versions not supported.)
 
   To install:
 `pip install dearpygui`
 
-2. For scraping lyrics this app uses elmoiv's lyrics-api called azapi. 
+2. For scraping lyrics this app uses elmoiv's lyrics-api called azapi.
 
   To install:
 `pip install azapi`
