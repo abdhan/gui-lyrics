@@ -1,27 +1,19 @@
 from dearpygui.dearpygui import *
+from dearpygui.wrappers import *
 import azapi
 
 api = azapi.AZlyrics('google', accuracy=0.5)
 
-add_menu("Tools")
-add_menu_item("Show Logger", callback="show_logger")
-add_menu_item("Show About", callback="show_about")
-add_menu_item("Show Metrics", callback="show_metrics")
-add_menu_item("Show Documentation", callback="show_documentation")
-add_menu_item("Show Debug", callback="show_debug")
-end()
-
 set_main_window_size(850,800)
 set_main_window_title("API Test")
 
-##NEED TO CHANGE THE WAY i LOOK FOR CLICKS. OR CLEAR SELECTION
 def mainCallback(sender, data):
     if get_table_selections("songlisttable"):
-        add_text("", parent="lyrics")
         index = get_table_selections("songlisttable")
         urls = get_data("songs")
         url = urls[index[0][0]]
-        add_text(api.getLyrics(url), parent="lyrics")
+        set_value(get_data("lyricsdata"), api.getLyrics(url))
+        add_data("lyricsdata", api.getLyrics(url))
         set_table_selection("songlisttable", row=index[0][0], column=index[0][1], value=False)
 
 def searchHandler(sender, data):
@@ -30,9 +22,11 @@ def searchHandler(sender, data):
         api.artist = get_value("artist")
         api.title = get_value("title")
         try:
-            add_text(api.getLyrics(), parent="lyrics")
+            set_value(get_data("lyricsdata"), api.getLyrics())
+            add_data("lyricsdata", api.getLyrics())
         except:
-            add_text("Try another Search term", parent="lyrics")
+            add_text(get_data("lyricsdata"), "Try another Search term")
+            add_data("lyricsdata", "Try another Search term")
         songs = api.getSongs()
         set_value("songlist", songs)
         urls = []
@@ -43,28 +37,27 @@ def searchHandler(sender, data):
     elif not get_value("artist") and get_value("title"):
         api.title = get_value("title")
         try:
-            add_text(api.getLyrics(), parent="lyrics")
+            set_value(get_data("lyricsdata"), api.getLyrics())
+            add_data("lyricsdata", api.getLyrics())
         except:
-            add_text("Try another Search term", parent="lyrics")
+            set_value(get_data("lyricsdata"), "Try another Search term")
+            add_data("lyricsdata", "Try another Search term")
 
 add_text("Type Search term and click Search! \nEnter Artist/Title for better results. \nEnter only Artist to get songs \nEnter only title to get a relevant lyrics")
 add_separator()
-add_group("search")
-add_input_text("artist", width=240)
-add_same_line()
-add_input_text("title", callback=searchHandler, on_enter=True, width=250)
-end()
+with group("search"):
+    add_input_text("artist", width=240)
+    add_same_line()
+    add_input_text("title", callback=searchHandler, on_enter=True, width=250)
 
-add_group("lyricsgroup")
-add_child("search_results", width=650)
-set_style_child_rounding(1.0)
-add_table("songlisttable", headers=["song", "artist", "album", "year"])
-end()
-add_same_line()
-add_child("lyrics", width=650)
-add_text("Lyrics show up here!", wrap=50)
-end()
-end()
+with group("lyricsgroup"):
+    with child("search_results", width=650):
+        set_style_child_rounding(1.0)
+        add_table("songlisttable", headers=["song", "artist", "album", "year"])
+    add_same_line()
+    with child("lyricschild", width=650):
+        add_text("Lyrics show up here!", parent="lyricschild")
+        add_data("lyricsdata", "Lyrics show up here!")
 
 set_render_callback(mainCallback, "MainWindow")
 start_dearpygui()

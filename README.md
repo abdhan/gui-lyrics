@@ -3,10 +3,11 @@
 Displays lyrics instantly or gives you options to choose from. Just enter artist and/or song title and hit ENTER.
 
 ## Dependencies
-Easy way is to download/clone this repo.
-Create a virtual environment if required.
+Easy way is to first download/clone this repo. Create a virtual environment if required.
+
 Run `pip install -r requirements.txt` from the root to install dependancies.
-Run `python3 lyric_finder.py` or `python lyric_finder.py`
+
+Run `python3 lyric_finder.py` or `python lyric_finder.py` to run.
 
 1. UI front-end is dearpygui. (Note: 32bit Python versions not supported.)
 
