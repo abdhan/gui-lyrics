@@ -9,12 +9,12 @@ Run `pip install -r requirements.txt` from the root to install dependancies.
 
 Run `python3 lyric_finder.py` or `python lyric_finder.py` to run.
 
-1. UI front-end is dearpygui. (Note: 32bit Python versions not supported.)
+1. UI front-end is [dearpygui](https://github.com/hoffstadt/DearPyGui). (Note: 32bit Python versions currently not supported.)
 
   To install:
 `pip install dearpygui`
 
-2. For scraping lyrics this app uses elmoiv's lyrics-api called azapi.
+2. For scraping lyrics this app uses elmoiv's lyrics-api called [azapi](https://github.com/elmoiv/azapi).
 
   To install:
 `pip install azapi`
