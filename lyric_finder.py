@@ -5,7 +5,7 @@ import azapi
 api = azapi.AZlyrics('google', accuracy=0.5)
 
 set_main_window_size(850,800)
-set_main_window_title("API Test")
+set_main_window_title("GUI Lyrics")
 
 def mainCallback(sender, data):
     if get_table_selections("songlisttable"):
@@ -13,6 +13,7 @@ def mainCallback(sender, data):
         urls = get_data("songs")
         url = urls[index[0][0]]
         set_value(get_data("lyricsdata"), api.getLyrics(url))
+        print(api.getLyrics(url))
         add_data("lyricsdata", api.getLyrics(url))
         set_table_selection("songlisttable", row=index[0][0], column=index[0][1], value=False)
 
